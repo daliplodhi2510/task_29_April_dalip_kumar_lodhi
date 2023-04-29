@@ -55,14 +55,21 @@ function App() {
     }
   }
 
-  // const removeProduct = (product) => {
-  //   console.log('delete',product);
-  //   const productExist = addItem.find((item)=> item.id === product.id);
-  //   if(productExist && productExist.qty > 1){
-  //     const updateItem = addItem.map((item) => item.id === product.id ? {...item,qty:item.qty - 1} : item);
-  //     setAddItem(updateItem);
-  //   }
-  // }
+  const removeProduct = (product) => {
+    const productExist = addItem.find((item)=> item.id === product.id);
+    if(productExist && productExist.qty > 1){
+      const updateItem = addItem.map((item) => item.id === product.id ? {...item,qty:item.qty - 1} : item);
+      setAddItem(updateItem);
+    }
+  }
+
+  const deleteProduct = (product) => {
+    const productExist = addItem.find((item)=> item.id === product.id);
+    if(productExist){
+      const updateItem = addItem.filter((item) => item.id !== product.id);
+      setAddItem(updateItem);
+    }
+  }
 
   const counterHelper = () => {
     let cartItem = 0;
@@ -87,7 +94,7 @@ function App() {
           }
         )
       }
-      <SideModel showModel={showModel} modelHandleClose={modelHandleClose} />
+      <SideModel deleteProduct={deleteProduct} removeProduct={removeProduct} addProduct={addProduct} addItem={addItem} totalAmount={totalAmount} totalCount={totalCount} showModel={showModel} modelHandleClose={modelHandleClose} />
     </>
   );
 }

@@ -1,21 +1,27 @@
 import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
+import {CartItems} from './'
 
-export const SideModel = ({showModel, modelHandleClose}) => {
+export const SideModel = ({deleteProduct, removeProduct, addProduct, addItem, totalAmount, totalCount, showModel, modelHandleClose}) => {
   return (
     <>
-      <Modal show={showModel} onHide={()=>modelHandleClose()}>
+      <Modal show={showModel} onHide={()=>modelHandleClose()} className='p-0'>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Carting Items({totalCount})</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Body>
+          <div className='cart-items'>
+            {
+              addItem.map((item)=>{
+                return <CartItems key={item.id} cardItem={item} addProduct={addProduct} removeProduct={removeProduct} deleteProduct={deleteProduct} />
+              })
+            }
+          </div>
+        </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={()=>modelHandleClose()}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={()=>modelHandleClose()}>
-            Save Changes
-          </Button>
+          <div className='d-flex justify-content-between w-100'>
+            <p className='fs-6 fs-bold'>Total Amount</p>
+            <p className='fs-5 fs-bold'>{totalAmount.toFixed(2)}</p>
+          </div>
         </Modal.Footer>
       </Modal>
     </>
